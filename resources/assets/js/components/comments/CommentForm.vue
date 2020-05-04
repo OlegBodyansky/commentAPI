@@ -1,5 +1,7 @@
 <template>
+
     <div class="comment_block col-md-8">
+
         <div class="form-group">
             <label class="control-label" for="author_name">Author name</label>
                 <input type="text" :id="author_name" v-model="author_name" class="form-control">
@@ -27,17 +29,18 @@
 
         methods: {
             updateComment(comment) {
-                if (this.edit = true) {
+                console.log()
+                if (this.edit == true) {
                     axios.post('/api/v1/comment/update', {
                         id: comment.id,
                         comment: this.comment_text,
-                        author_name: this.author_name==undefined ? this.author_name:'incognito',
+                        author_name: this.author_name!=undefined ? this.author_name:'incognito',
                     }).then(resp => {
                         this.comment_text = this.author_name = '';
                         if (!resp.data.error) {
                             this.comment_text = this.author_name = '';
                             comment.comment = resp.data.comment
-                            comment.author_comment=resp.data.author_comment
+                            comment.author_name=resp.data.author_name
                         }
                     });
                 } else {
